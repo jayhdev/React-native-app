@@ -1,19 +1,12 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { Provider } from 'react-redux';
+import store from './Redux/ConfigureStore'
+import RootContainer from './RootContainer'
 
-export default function App() {
+export default function MainApp() {
   return (
-    <View style={styles.container}>
-      <Text>Event Mobile App</Text>
-    </View>
+    <Provider store={store}>
+      <RootContainer/>
+    </Provider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
