@@ -1,4 +1,8 @@
-import { AppRegistry } from 'react-native';
+import React from 'react';
 import MainApp from './Src/App'
 
-AppRegistry.registerComponent('EventApp', () => MainApp)
+export default function App() {
+  return (
+    <MainApp/>
+  );
+}
