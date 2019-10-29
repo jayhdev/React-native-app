@@ -1,12 +1,7 @@
-// @flow
-
-import { combineReducers } from 'redux'
-import configureStore from './CreateStore'
+import createStore from './CreateStore'
+import rootReducer from './Reducers'
 import rootSaga from './Sagas'
 
 export default () => {
-  const rootReducer = combineReducers({
-  })
-
-  return configureStore(rootReducer, rootSaga)
+  return createStore(rootReducer, rootSaga)
 }
