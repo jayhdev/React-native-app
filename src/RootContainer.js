@@ -1,21 +1,27 @@
-// @flow
-
 import React from 'react'
 import { View } from 'react-native'
 import { connect } from 'react-redux'
-import HomeScreen from './Screens/Home'
+import Navigation from './Navigation'
 
 class RootContainer extends React.Component {
+  constructor(props) {
+    super(props)
+  }
+
   render() {
+    const isLoggedIn = !!this.props.currentUser
+
     return (
       <View style={{ flex: 1 }}>
-        <HomeScreen />
+        <Navigation />
       </View>
     )
   }
 }
 
-const mapStateToProps = state => ({})
+const mapStateToProps = state => ({
+  currentUser: state.user
+})
 
 const mapDispatchToProps = dispatch => ({})
 
