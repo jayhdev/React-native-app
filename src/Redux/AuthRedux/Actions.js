@@ -1,8 +1,9 @@
 import * as CONSTANTS from './Constants'
 
-export function tempAction(payload) {
+export function signupRequest(email, password) {
   return {
-    type: CONSTANTS.TEMP_CONSANTS,
-    payload
+    type: CONSTANTS.SIGNUP_REQUEST,
+    email,
+    password
   }
 }
