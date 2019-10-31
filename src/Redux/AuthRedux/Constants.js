@@ -1,1 +1,1 @@
-export const TEMP_CONSANTS = "temp/constants"
+export const SIGNUP_REQUEST = "auth/signupRequest"
