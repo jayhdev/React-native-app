@@ -29,7 +29,6 @@ class SignIn extends React.Component {
     const email = this.state.email;
     const password = this.state.password;
 
-    console.log("Login is submitted")
     // this.props.login({
     //   email,
     //   password
