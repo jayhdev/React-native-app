@@ -1,10 +1,11 @@
-import CONSTANTS from './Constants'
+import { put, takeLatest, call } from 'redux-saga/effects';
+import * as CONSTANTS from './Constants'
 import request from '../../Services/api'
 
 function* signupRequest(action) {
   const {email, password} = action
 
-  return request('/signup', {email, password}, 'POST', false)
+  yield call(request, '/signup', {email, password}, 'post', false)
 }
 
 export default function* authSaga() {

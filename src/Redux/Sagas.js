@@ -1,7 +1,8 @@
+import { all, fork } from 'redux-saga/effects'
 import AuthSagas from './AuthRedux/Sagas'
 
 export default function* root() {
-  yield [
-    AuthSagas
-  ]
+  yield all([
+    fork(AuthSagas)
+  ])
 }

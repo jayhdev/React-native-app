@@ -1,18 +1,20 @@
-import {apiUrl} from '../../environment.js'
+import axios from 'axios'
+import getEnvVars from '../../environment.js'
+const {apiUrl} = getEnvVars()
 
-export default function request(url, data, method = 'GET', authRequired = true) {
+export default function request(url, data, method = 'get', authRequired = true) {
   const requestObject = {
     method, 
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify(data)
+    data
   }
 
   if (authRequired) requestObject.headers['Authorization'] = 'token'
 
-  return fetch(`${apiUrl}${url}`, requestObject)
+  return axios(`${apiUrl}/api${url}`, requestObject)
     .then(res => {
       console.log('Response', res)
 
