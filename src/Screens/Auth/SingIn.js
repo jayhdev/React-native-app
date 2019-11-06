@@ -1,5 +1,6 @@
 import React from 'react';
-import { Text, TextInput, KeyboardAvoidingView, ScrollView, Button } from 'react-native';
+import { Text, TextInput, KeyboardAvoidingView, ScrollView } from 'react-native';
+import { Button } from '../../Components';
 import { connect } from 'react-redux';
 
 import styles from './AuthStyles';
