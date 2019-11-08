@@ -22,12 +22,11 @@ export default StyleSheet.create({
     borderWidth: 2,
     borderRadius: 5
   },
-  button: {
-    backgroundColor: 'gray',
-    width: 150,
-    height: 40,
-    borderRadius: 5,
-    alignSelf: 'center'
+  titleStyle: {
+    color: 'black'
+  },
+  buttonStyle: {
+    backgroundColor: 'white'
   },
   error: {
     fontSize: 15,
@@ -35,5 +34,5 @@ export default StyleSheet.create({
     marginVertical: 0,
     paddingLeft: 10,
     fontWeight: 'bold'
-  }
+  },
 });
