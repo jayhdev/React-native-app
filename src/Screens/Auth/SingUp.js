@@ -94,8 +94,7 @@ class Signup extends React.Component {
             onChangeText={(password2) => this.handleChangePassword2(password2)}
           />
           <Button
-            buttonStyle={styles.button}
-            title="Sign Up"
+            title="Create an Account"
             onPress={this.handleSubmit}
           />
         </ScrollView>

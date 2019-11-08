@@ -1,6 +1,6 @@
 import React from 'react';
-import { Text, TextInput, KeyboardAvoidingView, ScrollView } from 'react-native';
-import { Button } from '../../Components';
+import { Text, KeyboardAvoidingView, ScrollView } from 'react-native';
+import { Button, Input } from '../../Components';
 import { connect } from 'react-redux';
 
 import styles from './AuthStyles';
@@ -47,37 +47,33 @@ class SignIn extends React.Component {
     <KeyboardAvoidingView behavior="position" style={styles.container}>
       <ScrollView>
         <Text style={styles.error}>{this.state.error}</Text>
-        <Text style={styles.textLabel}>Email</Text>
-        <TextInput
+        <Input
           style={styles.textInput}
           autoCapitalize="none"
           autoCorrect={false}
           maxLength={15}
-          placeholder="EMAIL"
-          placeholderTextColor="tomato"
+          placeholder="Email"
           value={this.state.email}
           onChangeText={(email) => this.handleChangeEmail(email)}
         />
-        <Text style={styles.textLabel}>Password</Text>
-        <TextInput
+        <Input
           style={styles.textInput}
           secureTextEntry={true}
           autoCapitalize="none"
           autoCorrect={false}
           maxLength={15}
-          placeholder="PASSWORD"
-          placeholderTextColor="tomato"
+          placeholder="Password"
           value={this.state.password}
           onChangeText={(password) => this.handleChangePassword(password)}
         />
         <Button
-          buttonStyle={styles.button}
           title="Login"
           onPress={this.handleSubmit}
         />
         <Button
-          buttonStyle={styles.button}
           title="Sign Up"
+          titleStyle={styles.titleStyle}
+          buttonStyle={styles.buttonStyle}
           onPress={() => {
             this.props.navigation.navigate('SignUp');
             this.setState({
