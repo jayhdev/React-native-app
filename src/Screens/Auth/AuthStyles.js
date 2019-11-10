@@ -14,13 +14,7 @@ export default StyleSheet.create({
     padding: 10
   },
   textInput: {
-    height: 40,
-    width: 300,
-    margin: 10,
-    color: 'tomato',
-    fontSize: 15,
-    borderWidth: 2,
-    borderRadius: 5
+    borderWidth: 0,
   },
   titleStyle: {
     color: 'black'

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, KeyboardAvoidingView, ScrollView } from 'react-native';
+import { Text, KeyboardAvoidingView, ScrollView, TextInput } from 'react-native';
 import { Button, Input } from '../../Components';
 import { connect } from 'react-redux';
 
@@ -29,6 +29,8 @@ class SignIn extends React.Component {
   handleSubmit() {
     const email = this.state.email;
     const password = this.state.password;
+
+    this.props.navigation.navigate('HomeScreen');
 
     // this.props.login({
     //   email,

@@ -1,8 +1,8 @@
 import React from 'react';
-import { Text, TextInput, KeyboardAvoidingView, ScrollView } from 'react-native';
+import { Text, KeyboardAvoidingView, ScrollView } from 'react-native';
 import { connect } from 'react-redux';
 
-import { Button } from '../../Components';
+import { Button, Input } from '../../Components';
 import styles from './AuthStyles';
 import { signupRequest } from '../../Redux/AuthRedux/Actions';
 
@@ -65,8 +65,8 @@ class Signup extends React.Component {
         <ScrollView>
           <Text style={styles.error}>{this.state.error}</Text>
           <Text style={styles.textLabel}>Enter a Email</Text>
-          <TextInput
-            style={styles.textInput}
+          <Input
+            // style={styles.textInput}
             autoCapitalize="none"
             autoCorrect={false}
             maxLength={15}
@@ -74,8 +74,8 @@ class Signup extends React.Component {
             onChangeText={(email) => this.handleChangeEmail(email)}
           />
           <Text style={styles.textLabel}>Enter a Password</Text>
-          <TextInput
-            style={styles.textInput}
+          <Input
+            // style={styles.textInput}
             secureTextEntry={true}
             autoCapitalize="none"
             autoCorrect={false}
@@ -84,8 +84,8 @@ class Signup extends React.Component {
             onChangeText={(password1) => this.handleChangePassword1(password1)}
           />
           <Text style={styles.textLabel}>Confirm Password</Text>
-          <TextInput
-            style={styles.textInput}
+          <Input
+            // style={styles.textInput}
             secureTextEntry={true}
             autoCapitalize="none"
             autoCorrect={false}
@@ -100,7 +100,7 @@ class Signup extends React.Component {
         </ScrollView>
       </KeyboardAvoidingView>
     );
- }
+  }
 }
 
 const mapDispatchToProps = (dispatch) => ({
