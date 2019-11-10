@@ -19,6 +19,19 @@ const theme = {
     }
   },
   Input: {
+    inputContainerStyle: {
+      backgroundColor: colors.grey1,
+      // borderBottom: '0px solid white',
+      width: '100%',
+      height: 50,
+      borderRadius: 10,
+    },
+    containerStyle: {
+      marginTop: 10
+    },
+    inputStyle: {
+      borderBottomWidth: 0
+    }
   }
 };
 
