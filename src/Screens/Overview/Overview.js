@@ -1,12 +1,12 @@
 import React from 'react';
 import { Text, View } from 'react-native';
-import styles from './HomeStyles';
 import Footer from '../../Layout/Footer'
+import styles from './styles';
 
-export default function Home({navigation}) {
+export default function Overview({navigation}) {
   return (
     <View style={styles.container}>
-      <Text>Event Mobile App</Text>
+      <Text>Overview Page</Text>
       <Footer navigation={navigation}/>
     </View>
   );
