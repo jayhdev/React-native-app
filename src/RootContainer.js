@@ -2,6 +2,8 @@ import React from 'react'
 import { View } from 'react-native'
 import { connect } from 'react-redux'
 import Navigation from './Navigation'
+import styles from './styles'
+import NavigationService from './Services/navigation'
 
 class RootContainer extends React.Component {
   constructor(props) {
@@ -12,8 +14,10 @@ class RootContainer extends React.Component {
     const isLoggedIn = !!this.props.currentUser
 
     return (
-      <View style={{ flex: 1 }}>
-        <Navigation />
+      <View style={styles.root}>
+        <Navigation  ref={navigatorRef => {
+          NavigationService.setTopLevelNavigator(navigatorRef);
+        }}/>
       </View>
     )
   }
