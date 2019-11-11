@@ -1,9 +1,10 @@
 import React from 'react';
-import { Text, KeyboardAvoidingView, ScrollView, TextInput } from 'react-native';
-import { Button, Input } from '../../Components';
 import { connect } from 'react-redux';
+import { Text, KeyboardAvoidingView, ScrollView } from 'react-native';
 
+import { Button, Input } from '../../Components';
 import styles from './AuthStyles';
+import { loginRequest } from '../../Redux/AuthRedux/Actions';
 
 class SignIn extends React.Component {
   constructor(props){
@@ -13,35 +14,34 @@ class SignIn extends React.Component {
       password: '',
       error: '' || (this.props.navigation.state.params && this.props.navigation.state.params.error)
     };
-    this.handleChangeEmail = this.handleChangeEmail.bind(this);
-    this.handleChangePassword = this.handleChangePassword.bind(this);
+    this.handleChangeInput = this.handleChangeInput.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleChangeEmail(value) {
-    this.setState({email: value});
-  }
-
-  handleChangePassword(value) {
-    this.setState({password: value});
+  handleChangeInput(value, field) {
+    this.setState({[field]: value});
   }
 
   handleSubmit() {
-    const email = this.state.email;
-    const password = this.state.password;
+    const { email, password } = this.state
 
-    this.props.navigation.navigate('HomeScreen');
+    if (email && password) {
+      this.props.login({
+        email,
+        password
+      });
 
-    // this.props.login({
-    //   email,
-    //   password
-    // }, this.props.navigation);
-    // clear the state after login for security
-    this.setState({
-      email: '',
-      password: '',
-      error: ''
-    });
+      // clear the state after login for security
+      this.setState({
+        email: '',
+        password: '',
+        error: ''
+      });
+    } else {
+      this.setState({
+        error: 'Please fill in the values'
+      })
+    }
   }
 
   render() {
@@ -55,18 +55,20 @@ class SignIn extends React.Component {
           autoCorrect={false}
           maxLength={15}
           placeholder="Email"
+          autoCompleteType="email"
           value={this.state.email}
-          onChangeText={(email) => this.handleChangeEmail(email)}
-        />
+          onChangeText={val => this.handleChangeInput(val, 'email')}
+          />
         <Input
           style={styles.textInput}
           secureTextEntry={true}
           autoCapitalize="none"
+          autoCompleteType="password"
           autoCorrect={false}
           maxLength={15}
           placeholder="Password"
           value={this.state.password}
-          onChangeText={(password) => this.handleChangePassword(password)}
+          onChangeText={val => this.handleChangeInput(val, 'password')}
         />
         <Button
           title="Login"
@@ -92,7 +94,7 @@ class SignIn extends React.Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  // login: (credentials, navigation) => dispatch(login(credentials, navigation))
+  login: (credentials) => dispatch(loginRequest(credentials))
 });
 
 export default connect(null, mapDispatchToProps)(SignIn);
