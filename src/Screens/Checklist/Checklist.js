@@ -1,36 +1,51 @@
 import React from 'react';
-import { Text, View } from 'react-native';
+import { View } from 'react-native';
 import styles from './styles';
 import Footer from '../../Layout/Footer'
-import { ListItem } from 'react-native-elements'
-// import { ListItem } from '../../Components'
+import { ListItem } from '../../Components'
+import { connect } from 'react-redux';
+import { getChecklists } from '../../Redux/AppRedux/Actions'
 
-export default function Checklist({navigation}) {
-  const checklists = [
-    {
-      id: '1',
-      title: '13 months'
-    },
-    {
-      id: '2',
-      title: '12 months'
-    },
-  ]
+class Checklist extends React.Component {
+  constructor(props) {
+    super(props)
+  }
 
-  return (
-    <View>
-      {
-        checklists.map((checklist) => (
-          <ListItem 
-            key={checklist.id} 
-            title={checklist.title}
-            subtitle={checklist.title}
-            containerStyle={styles.container}
-            chevron
-          />
-        ))
-      }
-      <Footer navigation={navigation}/>
-    </View>
-  );
+  componentDidMount() {
+    const { eventId, fetchChecklists } = this.props
+
+    fetchChecklists(eventId)
+  }
+
+  render () {
+    const { checklists, navigation } = this.props;
+ 
+    return (
+      <View>
+        {
+          checklists.map((checklist) => (
+            <ListItem 
+              key={checklist.id} 
+              title={checklist.title}
+              subtitle={checklist.title}
+              containerStyle={styles.container}
+              chevron
+            />
+          ))
+        }
+        <Footer navigation={navigation}/>
+      </View>
+    )
+  }
 }
+
+const mapStateToProps = ({app}) => ({
+  checklists: [],
+  eventId: app.event.id
+})
+
+const mapDispatchToProps = dispatch => ({
+  fetchChecklists: () => dispatch(getChecklists())
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Checklist)
