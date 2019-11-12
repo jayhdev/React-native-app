@@ -25,9 +25,12 @@ export default () => {
   enhancers.push(applyMiddleware(...middleware))
 
   /* ------------- AutoRehydrate Enhancer ------------- */
+  const composeEnhancers =
+    typeof window === 'object' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ 
+      ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
+      : compose;
 
-  // in dev mode, we'll create the store through Reactotron
-  const store = createStore(rootReducer, compose(...enhancers))
+  const store = createStore(rootReducer, composeEnhancers(...enhancers))
 
   sagaMiddleware.run(rootSaga)
 
