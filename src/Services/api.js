@@ -12,7 +12,13 @@ export default function request(url, data, method = 'get', authRequired = true) 
     data
   }
 
-  if (authRequired) requestObject.headers['Authorization'] = 'token'
+  if (authRequired) {
+    const token = store.getState().auth.token
+
+    requestObject.headers['Authorization'] = token
+  } 
+
+  console.log("requestObject:", requestObject )
 
   return axios(`${apiUrl}/api${url}`, requestObject)
     .then(res => {

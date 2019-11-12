@@ -1,11 +1,18 @@
 import CONSTANTS from "./Constants"
 
 const initialState = {
-  user: ''
+  token: ''
 }
 
 export default (state = initialState, action) => {
   switch (action.type) {
+    case CONSTANTS.LOGIN_SUCCESS: {
+      return {
+        ...state,
+        token: action.payload
+      }
+    } 
+
     default:
       return state
   }
