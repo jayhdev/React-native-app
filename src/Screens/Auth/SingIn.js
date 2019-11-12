@@ -94,7 +94,7 @@ class SignIn extends React.Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  login: (credentials) => dispatch(loginRequest(credentials))
+  login: (credentials) => dispatch(loginRequest(credentials.email, credentials.password))
 });
 
 export default connect(null, mapDispatchToProps)(SignIn);
