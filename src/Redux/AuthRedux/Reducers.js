@@ -1,4 +1,4 @@
-import CONSTANTS from "./Constants"
+import * as CONSTANTS from "./Constants"
 
 const initialState = {
   token: ''
