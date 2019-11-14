@@ -1,7 +1,4 @@
-import {
-  createSwitchNavigator,
-  createAppContainer
-} from 'react-navigation';
+import { createSwitchNavigator, createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import HomeScreen from '../Screens/Home';
 import Checklist from '../Screens/Checklist';
@@ -11,6 +8,7 @@ import Overview from '../Screens/Overview';
 import TimeLine from '../Screens/TimeLine';
 import SignInScreen from '../Screens/Auth/SingIn';
 import SignUpScreen from '../Screens/Auth/SingUp';
+import LoadingScreen from '../Screens/Loading';
 
 const AuthStack = createStackNavigator(
   {
@@ -18,7 +16,7 @@ const AuthStack = createStackNavigator(
     SignUp: { screen: SignUpScreen }
   },
   {
-    initialRouteName: 'SignIn',
+    initialRouteName: 'SignIn'
   }
 );
 
@@ -41,11 +39,12 @@ const AppStack = createStackNavigator(
 // Manifest of possible screens
 const PrimaryNav = createSwitchNavigator(
   {
+    Loading: LoadingScreen,
     App: AppStack,
     Auth: AuthStack
   },
   {
-    initialRouteName: 'Auth'
+    initialRouteName: 'Loading'
   }
 );
 
