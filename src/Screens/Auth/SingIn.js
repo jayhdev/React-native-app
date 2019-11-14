@@ -1,29 +1,42 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Text, KeyboardAvoidingView, ScrollView } from 'react-native';
+import {
+  Text,
+  KeyboardAvoidingView,
+  ScrollView,
+  AsyncStorage
+} from 'react-native';
 
 import { Button, Input } from '../../Components';
 import styles from './AuthStyles';
 import { loginRequest } from '../../Redux/AuthRedux/Actions';
 
 class SignIn extends React.Component {
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
       email: '',
       password: '',
-      error: '' || (this.props.navigation.state.params && this.props.navigation.state.params.error)
+      error: ''
     };
     this.handleChangeInput = this.handleChangeInput.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+  componentDidMount() {
+    const existingToken = AsyncStorage.getItem('token');
+
+    if (existingToken) {
+      this.props.navigation.navigate('HomeScreen');
+    }
+  }
+
   handleChangeInput(value, field) {
-    this.setState({[field]: value});
+    this.setState({ [field]: value });
   }
 
   handleSubmit() {
-    const { email, password } = this.state
+    const { email, password } = this.state;
 
     if (email && password) {
       this.props.login({
@@ -40,61 +53,59 @@ class SignIn extends React.Component {
     } else {
       this.setState({
         error: 'Please fill in the values'
-      })
+      });
     }
   }
 
   render() {
-   return (
-    <KeyboardAvoidingView behavior="position" style={styles.container}>
-      <ScrollView>
-        <Text style={styles.error}>{this.state.error}</Text>
-        <Input
-          style={styles.textInput}
-          autoCapitalize="none"
-          autoCorrect={false}
-          maxLength={15}
-          placeholder="Email"
-          autoCompleteType="email"
-          value={this.state.email}
-          onChangeText={val => this.handleChangeInput(val, 'email')}
+    return (
+      <KeyboardAvoidingView behavior="position" style={styles.container}>
+        <ScrollView>
+          <Text style={styles.error}>{this.state.error}</Text>
+          <Input
+            style={styles.textInput}
+            autoCapitalize="none"
+            autoCorrect={false}
+            maxLength={15}
+            placeholder="Email"
+            autoCompleteType="email"
+            value={this.state.email}
+            onChangeText={val => this.handleChangeInput(val, 'email')}
           />
-        <Input
-          style={styles.textInput}
-          secureTextEntry={true}
-          autoCapitalize="none"
-          autoCompleteType="password"
-          autoCorrect={false}
-          maxLength={15}
-          placeholder="Password"
-          value={this.state.password}
-          onChangeText={val => this.handleChangeInput(val, 'password')}
-        />
-        <Button
-          title="Login"
-          onPress={this.handleSubmit}
-        />
-        <Button
-          title="Sign Up"
-          titleStyle={styles.titleStyle}
-          buttonStyle={styles.buttonStyle}
-          onPress={() => {
-            this.props.navigation.navigate('SignUp');
-            this.setState({
-              email: '',
-              password: '',
-              error: ''
-            });
-          }}
-        />
-      </ScrollView>
-    </KeyboardAvoidingView>
-  );
- }
+          <Input
+            style={styles.textInput}
+            secureTextEntry
+            autoCapitalize="none"
+            autoCompleteType="password"
+            autoCorrect={false}
+            maxLength={15}
+            placeholder="Password"
+            value={this.state.password}
+            onChangeText={val => this.handleChangeInput(val, 'password')}
+          />
+          <Button title="Login" onPress={this.handleSubmit} />
+          <Button
+            title="Sign Up"
+            titleStyle={styles.titleStyle}
+            buttonStyle={styles.buttonStyle}
+            onPress={() => {
+              this.props.navigation.navigate('SignUp');
+              this.setState({
+                email: '',
+                password: '',
+                error: ''
+              });
+            }}
+          />
+        </ScrollView>
+      </KeyboardAvoidingView>
+    );
+  }
 }
 
-const mapDispatchToProps = (dispatch) => ({
-  login: (credentials) => dispatch(loginRequest(credentials.email, credentials.password))
+const mapDispatchToProps = dispatch => ({
+  login: credentials =>
+    dispatch(loginRequest(credentials.email, credentials.password))
 });
 
 export default connect(null, mapDispatchToProps)(SignIn);
