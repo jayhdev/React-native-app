@@ -1,32 +1,40 @@
-import axios from 'axios'
-import getEnvVars from '../../environment.js'
-const {apiUrl} = getEnvVars()
+import axios from 'axios';
+import { getStore } from '../Redux';
+import getEnvVars from '../../environment';
 
-export default function request(url, data, method = 'get', authRequired = true) {
+const { apiUrl } = getEnvVars();
+
+export default function request(
+  url,
+  data,
+  method = 'get',
+  authRequired = true
+) {
   const requestObject = {
-    method, 
+    method,
     headers: {
       Accept: 'application/json',
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     },
     data
-  }
+  };
 
   if (authRequired) {
-    const token = store.getState().auth.token
+    const store = getStore();
+    const { token } = store.getState().auth;
 
-    requestObject.headers['Authorization'] = token
-  } 
+    requestObject.headers.Authorization = token;
+  }
 
-  console.log("requestObject:", requestObject )
+  console.log('requestObject:', requestObject);
 
   return axios(`${apiUrl}/api${url}`, requestObject)
     .then(res => {
-      console.log('Response', res)
+      console.log('Response', res.data);
 
-      return res
+      return res;
     })
     .catch(e => {
-      console.log('Error in the api service', e)
-    })
+      console.log('Error in the api service', e);
+    });
 }
