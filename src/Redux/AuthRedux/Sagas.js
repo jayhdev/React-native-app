@@ -1,3 +1,4 @@
+import { AsyncStorage } from 'react-native';
 import { put, takeLatest, call } from 'redux-saga/effects';
 import * as CONSTANTS from './Constants';
 import apiService from '../../Services/api';
@@ -24,7 +25,9 @@ function* loginRequest(action) {
     );
 
     if (data.success) {
-      yield put(loginSuccess(data.data.token));
+      const { token } = data.data;
+      yield call(AsyncStorage.setItem, 'token', JSON.stringify(token));
+      yield put(loginSuccess(token));
       navigationService.navigate('HomeScreen');
     } else {
       throw new Error(data.message);

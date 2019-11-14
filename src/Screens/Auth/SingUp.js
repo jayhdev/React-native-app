@@ -7,7 +7,7 @@ import styles from './AuthStyles';
 import { signupRequest } from '../../Redux/AuthRedux/Actions';
 
 class Signup extends React.Component {
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
       name: '',
@@ -21,18 +21,18 @@ class Signup extends React.Component {
   }
 
   handleChangeInput(value, field) {
-    this.setState({[field]: value});
+    this.setState({ [field]: value });
   }
 
   handleSubmit() {
-    const {name, email, password} = this.state;
+    const { name, email, password } = this.state;
 
     if (email && password) {
       this.props.signup({
         email,
         password
       });
-  
+
       // clear the state after signup for security
       this.setState({
         email: '',
@@ -75,18 +75,16 @@ class Signup extends React.Component {
             value={this.state.password}
             onChangeText={val => this.handleChangeInput(val, 'password')}
           />
-          <Button
-            title="Create an Account"
-            onPress={this.handleSubmit}
-          />
+          <Button title="Create an Account" onPress={this.handleSubmit} />
         </ScrollView>
       </KeyboardAvoidingView>
     );
   }
 }
 
-const mapDispatchToProps = (dispatch) => ({
-  signup: (credentials) => dispatch(signupRequest(credentials.email, credentials.password))
+const mapDispatchToProps = dispatch => ({
+  signup: credentials =>
+    dispatch(signupRequest(credentials.email, credentials.password))
 });
 
 export default connect(null, mapDispatchToProps)(Signup);
