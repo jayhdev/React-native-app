@@ -1,51 +1,44 @@
 import React from 'react';
 import { View } from 'react-native';
-import styles from './styles';
-import Footer from '../../Layout/Footer'
-import { ListItem } from '../../Components'
 import { connect } from 'react-redux';
-import { getChecklists } from '../../Redux/AppRedux/Actions'
+import styles from './styles';
+import Footer from '../../Layout/Footer';
+import { ListItem } from '../../Components';
+import { getChecklists } from '../../Redux/AppRedux/Actions';
 
 class Checklist extends React.Component {
-  constructor(props) {
-    super(props)
-  }
-
   componentDidMount() {
-    const { eventId, fetchChecklists } = this.props
-
-    fetchChecklists(eventId)
+    const { fetchChecklists, eventId } = this.props;
+    fetchChecklists(eventId);
   }
 
-  render () {
+  render() {
     const { checklists, navigation } = this.props;
- 
+
     return (
       <View>
-        {
-          checklists.map((checklist) => (
-            <ListItem 
-              key={checklist.id} 
-              title={checklist.title}
-              subtitle={checklist.title}
-              containerStyle={styles.container}
-              chevron
-            />
-          ))
-        }
-        <Footer navigation={navigation}/>
+        {checklists.map(checklist => (
+          <ListItem
+            key={checklist._id}
+            title={checklist.name}
+            subtitle={checklist.name}
+            containerStyle={styles.container}
+            chevron
+          />
+        ))}
+        <Footer navigation={navigation} />
       </View>
-    )
+    );
   }
 }
 
-const mapStateToProps = ({app}) => ({
-  checklists: [],
+const mapStateToProps = ({ app }) => ({
+  checklists: app.checklists,
   eventId: app.event.id
-})
+});
 
 const mapDispatchToProps = dispatch => ({
-  fetchChecklists: () => dispatch(getChecklists())
-})
+  fetchChecklists: eventId => dispatch(getChecklists(eventId))
+});
 
-export default connect(mapStateToProps, mapDispatchToProps)(Checklist)
+export default connect(mapStateToProps, mapDispatchToProps)(Checklist);
