@@ -1,10 +1,20 @@
-import { takeLatest, call } from 'redux-saga/effects';
+import {put, takeLatest, call } from 'redux-saga/effects';
 import * as CONSTANTS from './Constants'
+import { setChecklists } from './Actions'
 import apiService from '../../Services/api'
 
-function* getChecklists(eventId) {
-  console.log("Called here", eventId)
-  yield call(apiService, `/events/${eventId}/checklist`, null , 'get', false)
+function* getChecklists(action) {
+  try {
+    const {data} = yield call(apiService, `/events/${action.payload}/checklist`)
+  
+    if (!data.success) {
+      return null
+    }
+  
+    yield put(setChecklists(data.data.checklists))
+  } catch (e) {
+    console.log("Error in checklist", e)
+  }
 }
 
 export default function* appSaga() {
