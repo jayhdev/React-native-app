@@ -1,26 +1,31 @@
 {
   "parser": "babel-eslint",
   "extends": ["airbnb", "prettier"],
-  "plugins": ["react", "jsx-a11y", "import", "eslint-plugin-react"],
+  "plugins": [
+    "react",
+    "jsx-a11y",
+    "import",
+    "eslint-plugin-prettier",
+    "eslint-plugin-react"
+  ],
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "paths": ["src"]
+      }
+    }
+  },
   "rules": {
-    "import/no-extraneous-dependencies": [
-      "error",
-      {
-        "devDependencies": true
-      }
-    ],
+    "import/no-extraneous-dependencies": ["error", { "devDependencies": true }],
     "import/prefer-default-export": "off",
-    "react/jsx-filename-extension": [
-      1,
-      {
-        "extensions": [".js", ".jsx"]
-      }
-    ],
+    "import/no-cycle": "off",
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
     "react/prefer-stateless-function": [0],
     "react/jsx-indent": [0],
     "react/sort-comp": [0],
     "react/destructuring-assignment": [0],
     "react/forbid-prop-types": 0,
+    "react/jsx-boolean-value": 0,
     "react/jsx-props-no-spreading": 0,
     "react/prop-types": 0,
     "global-require": 0,
@@ -28,21 +33,13 @@
     "no-underscore-dangle": 0,
     "no-unused-expressions": 0,
     "no-return-assign": 0,
-    "react/no-unescaped-entities": [
-      "error",
-      {
-        "forbid": [">", "}"]
-      }
-    ],
+    "react/no-unescaped-entities": ["error", { "forbid": [">", "}"] }],
     "import/no-named-as-default-member": 0,
     "no-console": 0,
     "quotes": [
       "error",
       "single",
-      {
-        "avoidEscape": true,
-        "allowTemplateLiterals": false
-      }
+      { "avoidEscape": true, "allowTemplateLiterals": false }
     ],
     "no-shadow": 0,
     "jsx-quotes": ["error", "prefer-double"],
@@ -61,20 +58,9 @@
       }
     ]
   },
-  "env": {
-    "jest": true,
-    "es6": true
-  },
   "globals": {
-    "describe": true,
-    "test": true,
-    "jest": true,
-    "expect": true,
-    "fetch": true,
-    "navigator": true,
-    "__DEV__": true,
-    "XMLHttpRequest": true,
-    "FormData": true,
-    "React$Element": true
+    "window": true,
+    "document": true,
+    "navigator": true
   }
 }
