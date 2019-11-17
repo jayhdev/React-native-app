@@ -29,12 +29,6 @@ export default function request(
   console.log('requestObject:', requestObject);
 
   return axios(`${apiUrl}/api${url}`, requestObject)
-    .then(res => {
-      console.log('Response', res.data);
-
-      return res;
-    })
-    .catch(e => {
-      console.log('Error in the api service', e);
-    });
+    .then(res => res.data)
+    .catch(e => e.response);
 }

@@ -1,11 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import {
-  Text,
-  KeyboardAvoidingView,
-  ScrollView,
-  AsyncStorage
-} from 'react-native';
+import { Text, KeyboardAvoidingView, ScrollView } from 'react-native';
 
 import { Button, Input } from '../../Components';
 import styles from './AuthStyles';
@@ -21,14 +16,6 @@ class SignIn extends React.Component {
     };
     this.handleChangeInput = this.handleChangeInput.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-  }
-
-  componentDidMount() {
-    const existingToken = AsyncStorage.getItem('token');
-
-    if (existingToken) {
-      this.props.navigation.navigate('HomeScreen');
-    }
   }
 
   handleChangeInput(value, field) {
