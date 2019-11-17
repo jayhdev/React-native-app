@@ -1,27 +1,26 @@
 import React from 'react';
-import { Text, View, AsyncStorage } from 'react-native';
-import styles from './styles';
+import { ActivityIndicator, AsyncStorage, StatusBar, View } from 'react-native';
 
-class Loading extends React.Component {
+class LoadingScreen extends React.Component {
   componentDidMount() {
-    const token = AsyncStorage.getItem('token');
-    const { navigation } = this.props;
-    console.log('Token here', token);
-
-    if (token) {
-      navigation.navigate('HomeScreen');
-    } else {
-      navigation.navigate('SignIn');
-    }
+    this._bootstrapAsync();
   }
+
+  _bootstrapAsync = async () => {
+    const { navigation } = this.props;
+    const token = await AsyncStorage.getItem('token');
+
+    navigation.navigate(token ? 'App' : 'Auth');
+  };
 
   render() {
     return (
-      <View style={styles.container}>
-        <Text>Loading Page</Text>
+      <View>
+        <ActivityIndicator />
+        <StatusBar barStyle="default" />
       </View>
     );
   }
 }
 
-export default Loading;
+export default LoadingScreen;
