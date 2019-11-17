@@ -40,8 +40,8 @@ const AppStack = createStackNavigator(
 const PrimaryNav = createSwitchNavigator(
   {
     Loading: LoadingScreen,
-    App: AppStack,
-    Auth: AuthStack
+    Auth: AuthStack,
+    App: AppStack
   },
   {
     initialRouteName: 'Loading'

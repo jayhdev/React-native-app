@@ -14,7 +14,7 @@ export default StyleSheet.create({
     padding: 10
   },
   textInput: {
-    borderWidth: 0,
+    borderWidth: 0
   },
   titleStyle: {
     color: 'black'
@@ -28,5 +28,5 @@ export default StyleSheet.create({
     marginVertical: 0,
     paddingLeft: 10,
     fontWeight: 'bold'
-  },
+  }
 });
