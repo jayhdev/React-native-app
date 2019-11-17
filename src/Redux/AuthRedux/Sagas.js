@@ -1,4 +1,4 @@
-import { AsyncStorage } from 'react-native';
+import { AsyncStorage, Alert } from 'react-native';
 import { put, takeLatest, call } from 'redux-saga/effects';
 import * as CONSTANTS from './Constants';
 import apiService from '../../Services/api';
@@ -7,16 +7,34 @@ import { loginSuccess } from './Actions';
 
 function* signupRequest(action) {
   const { email, password } = action;
+  try {
+    const result = yield call(
+      apiService,
+      '/signup',
+      { email, password },
+      'post',
+      false
+    );
 
-  yield call(apiService, '/signup', { email, password }, 'post', false);
-  navigationService.navigate('Login');
+    if (result.success) {
+      navigationService.navigate('Login');
+    } else if (result.status === 409) {
+      Alert.alert(
+        'Email in Use',
+        'The email entered is already in use. Please login or select forgot password to continue',
+        [{ text: 'Try Again' }]
+      );
+    }
+  } catch (e) {
+    console.log('Signup error', e);
+  }
 }
 
 function* loginRequest(action) {
   try {
     const { email, password } = action;
 
-    const { data } = yield call(
+    const result = yield call(
       apiService,
       '/login',
       { email, password },
@@ -24,16 +42,20 @@ function* loginRequest(action) {
       false
     );
 
-    if (data.success) {
-      const { token } = data.data;
+    if (result.success) {
+      const { token } = result.data;
       yield call(AsyncStorage.setItem, 'token', JSON.stringify(token));
       yield put(loginSuccess(token));
       navigationService.navigate('HomeScreen');
-    } else {
-      throw new Error(data.message);
+    } else if (result.status === 401) {
+      Alert.alert(
+        'Incorrect Password',
+        'The password you entered does not match the email',
+        [{ text: 'Try Again' }]
+      );
     }
   } catch (e) {
-    console.log('Error in login', e);
+    console.log('Login Error', e);
   }
 }
 
