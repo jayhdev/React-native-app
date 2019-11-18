@@ -1,9 +1,4 @@
 import React from 'react';
-import { ListItem } from 'react-native-elements'
+import { ListItem } from 'react-native-elements';
 
-export default ({title, ...rest}) => (
-  <ListItem 
-    title={title}
-    {...rest}
-  />
-)
+export default ({ title, ...rest }) => <ListItem title={title} {...rest} />;
