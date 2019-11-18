@@ -1,4 +1,4 @@
-import colors from './color'
+import colors from './color';
 
 const theme = {
   colors: {
@@ -24,7 +24,7 @@ const theme = {
       // borderBottom: '0px solid white',
       width: '100%',
       height: 50,
-      borderRadius: 10,
+      borderRadius: 10
     },
     containerStyle: {
       marginTop: 10
@@ -32,6 +32,12 @@ const theme = {
     inputStyle: {
       borderBottomWidth: 0
     }
+  },
+  Header: {
+    backgroundColor: 'white'
+  },
+  Icon: {
+    color: colors.black
   }
 };
 
