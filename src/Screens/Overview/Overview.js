@@ -7,7 +7,7 @@ import styles from './styles';
 export default function Overview({ navigation }) {
   return (
     <View style={styles.container}>
-      <Header />
+      <Header navigation={navigation} />
       <Text>Overview Page</Text>
       <Footer navigation={navigation} />
     </View>
