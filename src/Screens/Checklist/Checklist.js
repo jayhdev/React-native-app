@@ -3,6 +3,7 @@ import { View } from 'react-native';
 import { connect } from 'react-redux';
 import styles from './styles';
 import Footer from '../../Layout/Footer';
+import Header from '../../Layout/Header';
 import { ListItem } from '../../Components';
 import { getChecklists } from '../../Redux/AppRedux/Actions';
 
@@ -17,6 +18,7 @@ class Checklist extends React.Component {
 
     return (
       <View>
+        <Header navigation={navigation} />
         {checklists.map(checklist => (
           <ListItem
             key={checklist._id}
