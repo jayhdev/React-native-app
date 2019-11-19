@@ -1,10 +1,12 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { View } from 'react-native';
 import { Button } from '../../Components';
+import * as AuthActions from '../../Redux/AuthRedux/Actions';
 
 class LoadingScreen extends React.Component {
   handleSignOut = () => {
-    console.log('sign out');
+    this.props.logout();
   };
 
   render() {
@@ -16,4 +18,8 @@ class LoadingScreen extends React.Component {
   }
 }
 
-export default LoadingScreen;
+const mapDispatchToProps = dispatch => ({
+  logout: () => dispatch(AuthActions.logout())
+});
+
+export default connect(null, mapDispatchToProps)(LoadingScreen);
