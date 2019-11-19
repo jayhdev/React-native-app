@@ -11,14 +11,13 @@ class MainHeader extends React.Component {
     this.state = {};
   }
 
-  rightComponent = hasRight => {
-    console.log('before has right');
-    if (!hasRight) {
-      console.log('has right');
+  openSetting = () => {
+    this.props.navigation.navigate('Account');
+  };
 
-      return null;
-    }
-    return <Icon name="account-circle" />;
+  rightComponent = hasRight => {
+    if (!hasRight) return null;
+    return <Icon name="account-circle" onPress={this.openSetting} />;
   };
 
   centerComponent = () => null;
@@ -38,7 +37,6 @@ class MainHeader extends React.Component {
 
     return (
       <Header
-        placement="left"
         leftComponent={this.leftComponent(hasLeft)}
         centerComponent={this.centerComponent(hasLeft)}
         rightComponent={this.rightComponent(hasRight)}
@@ -54,7 +52,7 @@ MainHeader.propTypes = {
 
 MainHeader.defaultProps = {
   hasRight: true,
-  hasLeft: true
+  hasLeft: false
 };
 
 export default MainHeader;
