@@ -1,6 +1,7 @@
 import { createSwitchNavigator, createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import HomeScreen from '../Screens/Home';
+import AccountScreen from '../Screens/Account';
 import Checklist from '../Screens/Checklist';
 import Finances from '../Screens/Finances';
 import Guests from '../Screens/Guests';
@@ -27,7 +28,8 @@ const AppStack = createStackNavigator(
     Finances: { screen: Finances },
     Guests: { screen: Guests },
     Overview: { screen: Overview },
-    TimeLine: { screen: TimeLine }
+    TimeLine: { screen: TimeLine },
+    Account: { screen: AccountScreen }
   },
   {
     // Default config for all screens
