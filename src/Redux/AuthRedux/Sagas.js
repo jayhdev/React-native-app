@@ -3,7 +3,7 @@ import { put, takeLatest, call } from 'redux-saga/effects';
 import * as CONSTANTS from './Constants';
 import apiService from '../../Services/api';
 import navigationService from '../../Services/navigation';
-import { loginSuccess } from './Actions';
+import { loginSuccess, logoutSuccess } from './Actions';
 
 function* signupRequest(action) {
   const { email, password } = action;
@@ -59,7 +59,13 @@ function* loginRequest(action) {
   }
 }
 
+function* logout() {
+  yield put(logoutSuccess());
+  navigationService.navigate('Auth');
+}
+
 export default function* authSaga() {
   yield takeLatest(CONSTANTS.SIGNUP_REQUEST, signupRequest);
   yield takeLatest(CONSTANTS.LOGIN_REQUEST, loginRequest);
+  yield takeLatest(CONSTANTS.LOGOUT, logout);
 }
