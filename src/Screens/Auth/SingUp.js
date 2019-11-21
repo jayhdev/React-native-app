@@ -1,16 +1,16 @@
 import React from 'react';
-import { Text, KeyboardAvoidingView, ScrollView } from 'react-native';
+import { KeyboardAvoidingView, View, TouchableHighlight } from 'react-native';
 import { connect } from 'react-redux';
 
-import { Button, Input } from '../../Components';
+import { Button, Input, Text } from '../../Components';
 import styles from './AuthStyles';
 import { signupRequest } from '../../Redux/AuthRedux/Actions';
+import colors from '../../Config/color';
 
 class Signup extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: '',
       email: '',
       password: '',
       error: ''
@@ -25,7 +25,7 @@ class Signup extends React.Component {
   }
 
   handleSubmit() {
-    const { name, email, password } = this.state;
+    const { email, password } = this.state;
 
     if (email && password) {
       this.props.signup({
@@ -48,17 +48,10 @@ class Signup extends React.Component {
 
   render() {
     return (
-      <KeyboardAvoidingView behavior="position" style={styles.container}>
-        <ScrollView>
+      <KeyboardAvoidingView behavior="padding" style={styles.container}>
+        <Text h2>Kelly & Durant Wedding</Text>
+        <View style={styles.inputBox}>
           <Text style={styles.error}>{this.state.error}</Text>
-          {/* <Input
-            placeholder="Full Name"
-            autoCapitalize="none"
-            autoCorrect={false}
-            maxLength={15}
-            value={this.state.name}
-            onChangeText={val => this.handleChangeInput(val, 'name')}
-          /> */}
           <Input
             placeholder="Email"
             autoCapitalize="none"
@@ -67,16 +60,33 @@ class Signup extends React.Component {
             onChangeText={val => this.handleChangeInput(val, 'email')}
           />
           <Input
-            placeholder="Password"
             secureTextEntry={true}
             autoCapitalize="none"
             autoCorrect={false}
             maxLength={15}
+            placeholder="Password"
+            autoCompleteType="password"
             value={this.state.password}
+            rightIcon={{ name: 'md-eye', type: 'ionicon', color: colors.grey3 }}
             onChangeText={val => this.handleChangeInput(val, 'password')}
           />
           <Button title="Create an Account" onPress={this.handleSubmit} />
-        </ScrollView>
+          <View style={styles.termsAndPolicy}>
+            <Text style={styles.tpText}>By signing up, you agree to our </Text>
+            <Text style={styles.tpText}>
+              <Text style={styles.tpContent}>Terms </Text>
+              and
+              <Text style={styles.tpContent}> Privacy</Text>
+            </Text>
+          </View>
+        </View>
+        <TouchableHighlight
+          style={styles.hasAccountContainer}
+          onPress={this.handleSubmit}>
+          <Text h4 style={styles.hasAccount}>
+            I have an Account
+          </Text>
+        </TouchableHighlight>
       </KeyboardAvoidingView>
     );
   }

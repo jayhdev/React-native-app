@@ -1,10 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Text, KeyboardAvoidingView, ScrollView } from 'react-native';
+import { KeyboardAvoidingView, View, TouchableHighlight } from 'react-native';
+import { Icon } from 'react-native-elements';
 
-import { Button, Input } from '../../Components';
+import { Button, Input, Text } from '../../Components';
 import styles from './AuthStyles';
 import { loginRequest } from '../../Redux/AuthRedux/Actions';
+import colors from '../../Config/color';
 
 class SignIn extends React.Component {
   constructor(props) {
@@ -16,6 +18,7 @@ class SignIn extends React.Component {
     };
     this.handleChangeInput = this.handleChangeInput.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleSignUpPress = this.handleSignUpPress.bind(this);
   }
 
   handleChangeInput(value, field) {
@@ -44,10 +47,23 @@ class SignIn extends React.Component {
     }
   }
 
+  handleSignUpPress() {
+    this.props.navigation.navigate('SignUp');
+    this.setState({
+      email: '',
+      password: '',
+      error: ''
+    });
+  }
+
   render() {
     return (
-      <KeyboardAvoidingView behavior="position" style={styles.container}>
-        <ScrollView>
+      <KeyboardAvoidingView behavior="padding" style={styles.container}>
+        <View>
+          <Text h2>Kelly & Durant Wedding</Text>
+          <Text h4>Keeping track of event details has never been easier.</Text>
+        </View>
+        <View style={styles.inputBox}>
           <Text style={styles.error}>{this.state.error}</Text>
           <Input
             style={styles.textInput}
@@ -67,24 +83,23 @@ class SignIn extends React.Component {
             autoCorrect={false}
             maxLength={15}
             placeholder="Password"
+            rightIcon={{ name: 'md-eye', type: 'ionicon', color: colors.grey3 }}
             value={this.state.password}
             onChangeText={val => this.handleChangeInput(val, 'password')}
           />
           <Button title="Login" onPress={this.handleSubmit} />
-          <Button
-            title="Sign Up"
-            titleStyle={styles.titleStyle}
-            buttonStyle={styles.buttonStyle}
-            onPress={() => {
-              this.props.navigation.navigate('SignUp');
-              this.setState({
-                email: '',
-                password: '',
-                error: ''
-              });
-            }}
-          />
-        </ScrollView>
+          <TouchableHighlight>
+            <Text style={styles.forgotPassword}>Forgot password?</Text>
+          </TouchableHighlight>
+        </View>
+        <TouchableHighlight
+          style={styles.buttonStyle}
+          onPress={this.handleSignUpPress}>
+          <View style={styles.titleStyle}>
+            <Text style={styles.contentStyle}>Sign Up</Text>
+            <Icon name="right" type="antdesign" />
+          </View>
+        </TouchableHighlight>
       </KeyboardAvoidingView>
     );
   }
