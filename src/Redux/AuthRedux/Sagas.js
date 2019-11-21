@@ -60,6 +60,7 @@ function* loginRequest(action) {
 }
 
 function* logout() {
+  yield call(AsyncStorage.removeItem, 'token');
   yield put(logoutSuccess());
   navigationService.navigate('Auth');
 }

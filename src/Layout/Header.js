@@ -4,6 +4,7 @@ import { Icon } from 'react-native-elements';
 import PropTypes from 'prop-types';
 import { Header } from '../Components';
 import styles from './styles';
+import color from '../Config/color';
 
 class MainHeader extends React.Component {
   constructor(props) {
@@ -17,7 +18,13 @@ class MainHeader extends React.Component {
 
   rightComponent = hasRight => {
     if (!hasRight) return null;
-    return <Icon name="account-circle" onPress={this.openSetting} />;
+    return (
+      <Icon
+        name="account-circle"
+        color={color.grey2}
+        onPress={this.openSetting}
+      />
+    );
   };
 
   centerComponent = () => null;
