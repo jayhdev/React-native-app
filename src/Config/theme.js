@@ -7,7 +7,8 @@ const theme = {
   Button: {
     titleStyle: {
       color: 'white',
-      fontSize: 18
+      fontSize: 18,
+      fontWeight: 500
     },
     buttonStyle: {
       backgroundColor: colors.secondary,
@@ -15,22 +16,37 @@ const theme = {
       height: 50,
       borderRadius: 10,
       alignSelf: 'center',
-      marginTop: 10
+      marginTop: 20,
+      marginBottom: 20
+    },
+    containerStyle: {
+      justifyContent: 'space-between'
+    }
+  },
+  ButtonGroup: {
+    containerStyle: {
+      backgroundColor: colors.grey1,
+      marginLeft: 0,
+      marginRight: 0
     }
   },
   Input: {
     inputContainerStyle: {
       backgroundColor: colors.grey1,
-      // borderBottom: '0px solid white',
+      borderBottomWidth: 0,
       width: '100%',
-      height: 50,
-      borderRadius: 10
+      height: 45,
+      borderRadius: 10,
+      paddingRight: 10
     },
     containerStyle: {
-      marginTop: 10
+      marginTop: 10,
+      paddingLeft: 0,
+      paddingRight: 0
     },
     inputStyle: {
-      borderBottomWidth: 0
+      marginLeft: 10,
+      marginRight: 10
     }
   },
   Header: {
@@ -38,6 +54,22 @@ const theme = {
   },
   Icon: {
     color: colors.black
+  },
+  Text: {
+    style: {
+      fontFamily: 'SF Pro Display',
+      lineHeight: 18
+    },
+    h2Style: {
+      fontSize: 36,
+      lineHeight: 40,
+      fontWeight: 'bold',
+      marginBottom: 15
+    },
+    h4Style: {
+      fontSize: 16,
+      lineHeight: 22
+    }
   }
 };
 
