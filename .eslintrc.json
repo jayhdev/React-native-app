@@ -26,6 +26,7 @@
     "react/destructuring-assignment": [0],
     "react/forbid-prop-types": 0,
     "react/jsx-boolean-value": 0,
+    "react/jsx-closing-bracket-location": 0,
     "react/jsx-props-no-spreading": 0,
     "react/prop-types": 0,
     "global-require": 0,
@@ -61,6 +62,7 @@
   "globals": {
     "window": true,
     "document": true,
-    "navigator": true
+    "navigator": true,
+    "__DEV__": true
   }
 }
