@@ -8,7 +8,7 @@ const theme = {
     titleStyle: {
       color: 'white',
       fontSize: 18,
-      fontWeight: 500
+      fontWeight: '500'
     },
     buttonStyle: {
       backgroundColor: colors.secondary,
@@ -20,7 +20,8 @@ const theme = {
       marginBottom: 20
     },
     containerStyle: {
-      justifyContent: 'space-between'
+      justifyContent: 'space-between',
+      width: '100%'
     }
   },
   ButtonGroup: {
@@ -57,14 +58,19 @@ const theme = {
   },
   Text: {
     style: {
-      fontFamily: 'SF Pro Display',
-      lineHeight: 18
+      lineHeight: 18,
+      color: colors.black
     },
-    h2Style: {
+    h1Style: {
       fontSize: 36,
       lineHeight: 40,
       fontWeight: 'bold',
       marginBottom: 15
+    },
+    h2Style: {
+      fontSize: 24,
+      lineHeight: 28,
+      fontWeight: 'bold'
     },
     h4Style: {
       fontSize: 16,
