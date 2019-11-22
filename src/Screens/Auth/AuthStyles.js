@@ -13,7 +13,7 @@ export default StyleSheet.create({
     paddingRight: 30
   },
   inputBox: {
-    marginTop: -140
+    marginTop: -40
   },
   textInput: {
     borderWidth: 0
@@ -21,7 +21,6 @@ export default StyleSheet.create({
   titleStyle: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItem: 'center',
     fontSize: 18
   },
   buttonStyle: {
@@ -37,7 +36,7 @@ export default StyleSheet.create({
     paddingRight: 10
   },
   contentStyle: {
-    fontWeight: 500,
+    fontWeight: '500',
     fontSize: 18,
     marginTop: 5
   },
@@ -70,5 +69,43 @@ export default StyleSheet.create({
   },
   tpContent: {
     color: colors.secondary
+  },
+  notContainer: {
+    flex: 1,
+    width: '100%',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    alignSelf: 'center',
+    marginTop: -20,
+    backgroundColor: colors.background
+  },
+  notInnerContainer: {
+    width: '70%',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    alignSelf: 'center'
+  },
+  notIcon: {
+    marginBottom: 30
+  },
+  notText: {
+    textAlign: 'center',
+    color: colors.grey3,
+    marginTop: 10
+  },
+  enableButton: {
+    width: '80%'
+  },
+  notNowButton: {
+    width: '80%',
+    backgroundColor: 'white',
+    borderWidth: 0.5,
+    borderColor: colors.grey2,
+    marginTop: 0
+  },
+  notNowTitle: {
+    color: colors.black
   }
 });
