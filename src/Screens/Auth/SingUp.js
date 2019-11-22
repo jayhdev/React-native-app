@@ -18,6 +18,7 @@ class Signup extends React.Component {
 
     this.handleChangeInput = this.handleChangeInput.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleLoginReDirect = this.handleLoginReDirect.bind(this);
   }
 
   handleChangeInput(value, field) {
@@ -46,10 +47,14 @@ class Signup extends React.Component {
     }
   }
 
+  handleLoginReDirect() {
+    this.props.navigation.navigate('SignIn');
+  }
+
   render() {
     return (
       <KeyboardAvoidingView behavior="padding" style={styles.container}>
-        <Text h2>Kelly & Durant Wedding</Text>
+        <Text h1>Kelly & Durant Wedding</Text>
         <View style={styles.inputBox}>
           <Text style={styles.error}>{this.state.error}</Text>
           <Input
@@ -82,7 +87,9 @@ class Signup extends React.Component {
         </View>
         <TouchableHighlight
           style={styles.hasAccountContainer}
-          onPress={this.handleSubmit}>
+          onPress={this.handleLoginReDirect}
+          activeOpacity={1}
+          underlayColor="white">
           <Text h4 style={styles.hasAccount}>
             I have an Account
           </Text>

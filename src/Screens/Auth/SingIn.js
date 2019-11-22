@@ -49,18 +49,13 @@ class SignIn extends React.Component {
 
   handleSignUpPress() {
     this.props.navigation.navigate('SignUp');
-    this.setState({
-      email: '',
-      password: '',
-      error: ''
-    });
   }
 
   render() {
     return (
       <KeyboardAvoidingView behavior="padding" style={styles.container}>
         <View>
-          <Text h2>Kelly & Durant Wedding</Text>
+          <Text h1>Kelly & Durant Wedding</Text>
           <Text h4>Keeping track of event details has never been easier.</Text>
         </View>
         <View style={styles.inputBox}>
@@ -94,7 +89,9 @@ class SignIn extends React.Component {
         </View>
         <TouchableHighlight
           style={styles.buttonStyle}
-          onPress={this.handleSignUpPress}>
+          onPress={this.handleSignUpPress}
+          activeOpacity={1}
+          underlayColor="white">
           <View style={styles.titleStyle}>
             <Text style={styles.contentStyle}>Sign Up</Text>
             <Icon name="right" type="antdesign" />
