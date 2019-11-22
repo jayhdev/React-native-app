@@ -9,12 +9,14 @@ import Overview from '../Screens/Overview';
 import TimeLine from '../Screens/TimeLine';
 import SignInScreen from '../Screens/Auth/SingIn';
 import SignUpScreen from '../Screens/Auth/SingUp';
+import NotificationScreen from '../Screens/Auth/Notification';
 import LoadingScreen from '../Screens/Loading';
 
 const AuthStack = createStackNavigator(
   {
     SignIn: { screen: SignInScreen },
-    SignUp: { screen: SignUpScreen }
+    SignUp: { screen: SignUpScreen },
+    Notification: { screen: NotificationScreen }
   },
   {
     initialRouteName: 'SignIn'
