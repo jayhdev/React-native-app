@@ -17,16 +17,20 @@ function* signupRequest(action) {
     );
 
     if (result.success) {
-      navigationService.navigate('Login');
+      navigationService.navigate('Notification');
     } else if (result.status === 409) {
       Alert.alert(
         'Email in Use',
         'The email entered is already in use. Please login or select forgot password to continue',
         [{ text: 'Try Again' }]
       );
+    } else {
+      throw new Error(result.data);
     }
   } catch (e) {
     console.log('Signup error', e);
+    // @TODO  Change error message based on the env
+    Alert.alert('Unexpected Error', e.message, [{ text: 'Try Again' }]);
   }
 }
 
