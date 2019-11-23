@@ -1,6 +1,7 @@
 import { createSwitchNavigator, createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import HomeScreen from '../Screens/Home';
+import CodeScreen from '../Screens/EventCode';
 import AccountScreen from '../Screens/Account';
 import Checklist from '../Screens/Checklist';
 import Finances from '../Screens/Finances';
@@ -26,6 +27,7 @@ const AuthStack = createStackNavigator(
 const AppStack = createStackNavigator(
   {
     HomeScreen: { screen: HomeScreen },
+    EventCode: { screen: CodeScreen },
     Checklist: { screen: Checklist },
     Finances: { screen: Finances },
     Guests: { screen: Guests },
