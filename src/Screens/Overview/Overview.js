@@ -1,12 +1,13 @@
 import React from 'react';
 import { Text, View } from 'react-native';
+
 import Footer from '../../Layout/Footer';
 import Header from '../../Layout/Header';
-import styles from './styles';
+import rootStyles from '../../styles';
 
 export default function Overview({ navigation }) {
   return (
-    <View style={styles.container}>
+    <View style={rootStyles.container}>
       <Header navigation={navigation} />
       <Text>Overview Page</Text>
       <Footer navigation={navigation} />

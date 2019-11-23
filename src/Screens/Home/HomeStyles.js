@@ -1,11 +1,9 @@
 import { StyleSheet } from 'react-native';
+import colors from '../../Config/color';
 
 export default StyleSheet.create({
-  container: {
+  homeContent: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+    padding: 30
+  }
 });
-  
