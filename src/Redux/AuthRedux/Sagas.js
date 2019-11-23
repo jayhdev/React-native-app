@@ -50,16 +50,19 @@ function* loginRequest(action) {
       const { token } = result.data;
       yield call(AsyncStorage.setItem, 'token', JSON.stringify(token));
       yield put(loginSuccess(token));
-      navigationService.navigate('HomeScreen');
+      navigationService.navigate('App');
     } else if (result.status === 401) {
       Alert.alert(
         'Incorrect Password',
         'The password you entered does not match the email',
         [{ text: 'Try Again' }]
       );
+    } else {
+      throw new Error(result.data);
     }
   } catch (e) {
     console.log('Login Error', e);
+    Alert.alert('Unexpected Error', e.message, [{ text: 'Try Again' }]);
   }
 }
 
