@@ -3,7 +3,6 @@ import colors from '../../Config/color';
 
 export default StyleSheet.create({
   container: {
-    flexDirection: 'column',
     justifyContent: 'space-between',
     backgroundColor: colors.background,
     paddingHorizontal: 5,
@@ -24,7 +23,6 @@ export default StyleSheet.create({
     fontSize: 18
   },
   buttonStyle: {
-    flexDirection: 'column',
     justifyContent: 'center',
     marginBottom: 50,
     backgroundColor: 'white',
@@ -73,7 +71,6 @@ export default StyleSheet.create({
   notContainer: {
     flex: 1,
     width: '100%',
-    flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
     alignSelf: 'center',
@@ -82,7 +79,6 @@ export default StyleSheet.create({
   },
   notInnerContainer: {
     width: '70%',
-    flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
     alignSelf: 'center'
