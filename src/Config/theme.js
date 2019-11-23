@@ -72,9 +72,22 @@ const theme = {
       lineHeight: 28,
       fontWeight: 'bold'
     },
+    h3Style: {
+      fontSize: 18,
+      lineHeight: 22,
+      fontWeight: '600'
+    },
     h4Style: {
       fontSize: 16,
       lineHeight: 22
+    }
+  },
+  ListItem: {
+    contentContainerStyle: {
+      paddingTop: 8,
+      paddingBottom: 8,
+      paddingRight: 6,
+      paddingLeft: 6
     }
   }
 };
