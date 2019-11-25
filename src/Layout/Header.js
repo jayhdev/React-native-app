@@ -1,10 +1,9 @@
 import React from 'react';
-import { View, Text } from 'react-native';
 import { Icon } from 'react-native-elements';
 import PropTypes from 'prop-types';
-import { Header } from '../Components';
+import { Header, Button } from '../Components';
 import styles from './styles';
-import color from '../Config/color';
+import colors from '../Config/color';
 
 class MainHeader extends React.Component {
   constructor(props) {
@@ -21,7 +20,7 @@ class MainHeader extends React.Component {
     return (
       <Icon
         name="account-circle"
-        color={color.grey2}
+        color={colors.grey2}
         onPress={this.openSetting}
       />
     );
@@ -30,22 +29,30 @@ class MainHeader extends React.Component {
   centerComponent = () => null;
 
   leftComponent = hasLeft => {
+    const { navigation } = this.props;
     if (!hasLeft) return null;
     return (
-      <View style={styles.headerLeft}>
-        <Icon name="left" type="antdesign" />
-        <Text>Back</Text>
-      </View>
+      <Button
+        icon={{
+          name: 'left',
+          type: 'antdesign',
+          color: colors.secondary
+        }}
+        title="Back"
+        buttonStyle={styles.buttonStyle}
+        titleStyle={styles.titleStyle}
+        onPress={() => navigation.goBack()}
+      />
     );
   };
 
   render() {
-    const { hasLeft, hasRight } = this.props;
+    const { hasLeft, title, hasRight } = this.props;
 
     return (
       <Header
         leftComponent={this.leftComponent(hasLeft)}
-        centerComponent={this.centerComponent(hasLeft)}
+        centerComponent={{ title }}
         rightComponent={this.rightComponent(hasRight)}
       />
     );
