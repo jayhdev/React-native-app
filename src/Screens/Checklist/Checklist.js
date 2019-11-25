@@ -14,7 +14,17 @@ class Checklist extends React.Component {
   componentDidMount() {
     const { fetchChecklists, eventId } = this.props;
     fetchChecklists(eventId);
+
+    this.GotoDetails = this.GotoDetails.bind(this);
   }
+
+  static navigationOptions = {
+    title: 'Other Title'
+  };
+
+  GotoDetails = checklistId => {
+    this.props.navigation.navigate('ChecklistDetail');
+  };
 
   render() {
     const { checklists, navigation } = this.props;
@@ -32,6 +42,7 @@ class Checklist extends React.Component {
               subtitleStyle={styles.subtitleStyle}
               containerStyle={styles.itemContainer}
               chevron
+              onPress={() => this.GotoDetails(checklist._id)}
             />
           ))}
         </View>
