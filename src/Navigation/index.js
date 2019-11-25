@@ -4,6 +4,7 @@ import HomeScreen from '../Screens/Home';
 import CodeScreen from '../Screens/EventCode';
 import AccountScreen from '../Screens/Account';
 import Checklist from '../Screens/Checklist';
+import ChecklistDetail from '../Screens/Checklist/Detail';
 import Finances from '../Screens/Finances';
 import Guests from '../Screens/Guests';
 import Overview from '../Screens/Overview';
@@ -29,6 +30,7 @@ const AppStack = createStackNavigator(
     HomeScreen: { screen: HomeScreen },
     EventCode: { screen: CodeScreen },
     Checklist: { screen: Checklist },
+    ChecklistDetail: { screen: ChecklistDetail },
     Finances: { screen: Finances },
     Guests: { screen: Guests },
     Overview: { screen: Overview },
