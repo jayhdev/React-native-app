@@ -6,6 +6,8 @@ import AccountScreen from '../Screens/Account';
 import Checklist from '../Screens/Checklist';
 import ChecklistDetail from '../Screens/Checklist/Detail';
 import Finances from '../Screens/Finances';
+import BudgetDetail from '../Screens/Finances/BudgetDetail';
+import PaymentDetail from '../Screens/Finances/PaymentDetail';
 import Guests from '../Screens/Guests';
 import Overview from '../Screens/Overview';
 import TimeLine from '../Screens/TimeLine';
@@ -32,6 +34,8 @@ const AppStack = createStackNavigator(
     Checklist: { screen: Checklist },
     ChecklistDetail: { screen: ChecklistDetail },
     Finances: { screen: Finances },
+    BudgetDetail: { screen: BudgetDetail },
+    PaymentDetail: { screen: PaymentDetail },
     Guests: { screen: Guests },
     Overview: { screen: Overview },
     TimeLine: { screen: TimeLine },

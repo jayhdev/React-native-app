@@ -1,6 +1,7 @@
 import React from 'react';
 import { Text, View } from 'react-native';
 import { ButtonGroup } from 'react-native-elements';
+import { connect } from 'react-redux';
 
 import { ListItem } from '../../Components';
 import Header from '../../Layout/Header';
@@ -32,41 +33,15 @@ class Finance extends React.Component {
     const { selectedIndex } = this.state;
     const route = selectedIndex === 0 ? 'BudgetDetail' : 'PaymentDetail';
 
-    navigation.navigate(route);
+    navigation.navigate(route, {
+      itemId: id
+    });
   }
 
   render() {
-    const { navigation } = this.props;
+    const { navigation, paymentLists, budgetLists } = this.props;
     const { selectedIndex } = this.state;
     const buttons = ['Payment', 'Budget'];
-    const paymentLists = [
-      {
-        _id: '001',
-        title: 'The Twisted Tulip',
-        subtitle: 'Due 11/21',
-        total: '124.1'
-      },
-      {
-        _id: '002',
-        title: 'King of Pops',
-        subtitle: 'Due 11/28',
-        total: '124.1'
-      }
-    ];
-    const budgetLists = [
-      {
-        _id: '001',
-        title: 'The Twisted Tulip',
-        subtitle: 'Florals',
-        total: '615.0'
-      },
-      {
-        _id: '002',
-        title: 'King of Pops',
-        subtitle: 'Food and Beverage',
-        total: '655.0'
-      }
-    ];
     const showingPayments = selectedIndex === 0;
     const lists = showingPayments ? paymentLists : budgetLists;
 
@@ -86,15 +61,15 @@ class Finance extends React.Component {
         />
         <View style={styles.content}>
           <Text>{showingPayments ? 'UPCOMING' : 'VENDORS'}</Text>
-          {lists.map((l, i) => (
+          {lists.map(item => (
             <ListItem
-              key={l._id}
-              title={l.title}
-              rightTitle={l.total}
-              subtitle={l.subtitle}
+              key={item._id}
+              title={item.item}
+              rightTitle={showingPayments ? item.amount : item.total}
+              subTitle={showingPayments ? item.subtitle : item.qty}
               bottomDivider
               leftElement={this.leftElement()}
-              onPress={() => this.gotoDetail(l._id)}
+              onPress={() => this.gotoDetail(item._id)}
               chevron
             />
           ))}
@@ -105,4 +80,9 @@ class Finance extends React.Component {
   }
 }
 
-export default Finance;
+const mapStateToProps = ({ app: { event } }) => ({
+  budgetLists: event.budgetItems,
+  paymentLists: event.paymentSchedules
+});
+
+export default connect(mapStateToProps)(Finance);
