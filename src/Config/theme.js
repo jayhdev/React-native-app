@@ -88,6 +88,9 @@ const theme = {
       paddingBottom: 8,
       paddingRight: 6,
       paddingLeft: 6
+    },
+    containerStyle: {
+      backgroundColor: colors.background
     }
   }
 };
