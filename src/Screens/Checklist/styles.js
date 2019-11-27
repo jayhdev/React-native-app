@@ -10,7 +10,6 @@ export default StyleSheet.create({
   itemContainer: {
     backgroundColor: colors.grey1,
     margin: 5,
-    padding: 10,
     borderRadius: 5
   },
   subtitleStyle: {
