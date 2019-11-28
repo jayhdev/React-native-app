@@ -84,10 +84,10 @@ const theme = {
   },
   ListItem: {
     contentContainerStyle: {
-      paddingTop: 8,
-      paddingBottom: 8,
-      paddingRight: 6,
-      paddingLeft: 6
+      // paddingTop: 8,
+      // paddingBottom: 8,
+      // paddingRight: 6,
+      // paddingLeft: 6
     },
     containerStyle: {
       backgroundColor: colors.background

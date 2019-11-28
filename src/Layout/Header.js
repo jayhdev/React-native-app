@@ -52,7 +52,7 @@ class MainHeader extends React.Component {
     return (
       <Header
         leftComponent={this.leftComponent(hasLeft)}
-        centerComponent={{ title }}
+        centerComponent={{ text: title }}
         rightComponent={this.rightComponent(hasRight)}
       />
     );
