@@ -1,7 +1,8 @@
 import * as CONSTANTS from './Constants';
 
 const initialState = {
-  token: ''
+  token: '',
+  user: {}
 };
 
 export default (state = initialState, action) => {
@@ -9,7 +10,11 @@ export default (state = initialState, action) => {
     case CONSTANTS.LOGIN_SUCCESS: {
       return {
         ...state,
-        token: action.payload
+        token: action.payload.token,
+        user: {
+          id: action.payload.id,
+          email: action.payload.email
+        }
       };
     }
 

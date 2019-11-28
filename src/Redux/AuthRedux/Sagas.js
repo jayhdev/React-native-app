@@ -1,5 +1,7 @@
 import { AsyncStorage, Alert } from 'react-native';
+import jwtDecode from 'jwt-decode';
 import { put, takeLatest, call } from 'redux-saga/effects';
+
 import * as CONSTANTS from './Constants';
 import apiService from '../../Services/api';
 import navigationService from '../../Services/navigation';
@@ -48,8 +50,15 @@ function* loginRequest(action) {
 
     if (result.success) {
       const { token } = result.data;
+      const decodedUser = jwtDecode(token);
+      const userData = {
+        token,
+        id: decodedUser._id,
+        email: decodedUser.email
+      };
+
       yield call(AsyncStorage.setItem, 'token', JSON.stringify(token));
-      yield put(loginSuccess(token));
+      yield put(loginSuccess(userData));
       navigationService.navigate('App');
     } else if (result.status === 401) {
       Alert.alert(
