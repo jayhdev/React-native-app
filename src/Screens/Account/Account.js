@@ -44,6 +44,11 @@ const Account = props => {
         title="Account"
       />
       <View style={styles.content}>
+        <View style={styles.itemText}>
+          <Text style={[styles.textStyle, styles.userEmail]}>
+            {props.user.email}
+          </Text>
+        </View>
         {itemList.map(item => (
           <View key={item.name}>
             <View style={styles.itemText}>
@@ -67,8 +72,12 @@ const Account = props => {
   );
 };
 
+const mapStateToProps = ({ auth: { user } }) => ({
+  user
+});
+
 const mapDispatchToProps = dispatch => ({
   logout: () => dispatch(AuthActions.logout())
 });
 
-export default connect(null, mapDispatchToProps)(Account);
+export default connect(mapStateToProps, mapDispatchToProps)(Account);

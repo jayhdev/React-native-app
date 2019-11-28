@@ -54,7 +54,7 @@ class Checklist extends React.Component {
 
 const mapStateToProps = ({ app }) => ({
   checklists: app.checklists,
-  eventId: app.event.id
+  eventId: app.event._id
 });
 
 const mapDispatchToProps = dispatch => ({
