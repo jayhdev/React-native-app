@@ -3,6 +3,7 @@ import { createStackNavigator } from 'react-navigation-stack';
 import HomeScreen from '../Screens/Home';
 import CodeScreen from '../Screens/EventCode';
 import AccountScreen from '../Screens/Account';
+import ShareScreen from '../Screens/Account/Share';
 import Checklist from '../Screens/Checklist';
 import ChecklistDetail from '../Screens/Checklist/Detail';
 import Finances from '../Screens/Finances';
@@ -11,6 +12,7 @@ import PaymentDetail from '../Screens/Finances/PaymentDetail';
 import Guests from '../Screens/Guests';
 import Overview from '../Screens/Overview';
 import TimeLine from '../Screens/TimeLine';
+import TimeLineDetail from '../Screens/TimeLine/Detail';
 import SignInScreen from '../Screens/Auth/SingIn';
 import SignUpScreen from '../Screens/Auth/SingUp';
 import NotificationScreen from '../Screens/Auth/Notification';
@@ -39,7 +41,9 @@ const AppStack = createStackNavigator(
     Guests: { screen: Guests },
     Overview: { screen: Overview },
     TimeLine: { screen: TimeLine },
-    Account: { screen: AccountScreen }
+    TimeLineDetail: { screen: TimeLineDetail },
+    Account: { screen: AccountScreen },
+    Share: { screen: ShareScreen }
   },
   {
     // Default config for all screens
