@@ -1,46 +1,36 @@
 import React from 'react';
-import { Text } from 'react-native';
-import { ButtonGroup } from 'react-native-elements';
-import { navigationItems } from './Constants';
+import { View, Text, Image, TouchableOpacity } from 'react-native';
 
-const component1 = () => <Text>Overview</Text>;
-const component2 = () => <Text>Finances</Text>;
-const component3 = () => <Text>Checklist</Text>;
-const component4 = () => <Text>TimeLine</Text>;
-const component5 = () => <Text>Guests</Text>;
+import navigationItems from './Constants';
+import styles from './styles';
 
-class Footer extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      selectedIndex: 2
-    };
-  }
+export default ({ navigation }) => {
+  const { routeName } = navigation.state;
 
-  updateIndex = selectedIndex => {
-    this.setState({ selectedIndex });
-    this.props.navigation.navigate(navigationItems[selectedIndex]);
-  };
+  return (
+    <View style={styles.footerContainer}>
+      {navigationItems.map(item => {
+        const isCurrentNav = routeName === item.name;
+        const itemImage = isCurrentNav ? item.pink : item.default;
 
-  render() {
-    const buttons = [
-      { element: component1 },
-      { element: component2 },
-      { element: component3 },
-      { element: component4 },
-      { element: component5 }
-    ];
-    const { selectedIndex } = this.state;
-
-    return (
-      <ButtonGroup
-        onPress={this.updateIndex}
-        selectedIndex={selectedIndex}
-        buttons={buttons}
-        containerStyle={{ height: 50 }}
-      />
-    );
-  }
-}
-
-export default Footer;
+        return (
+          <View
+            key={item.id}
+            style={[
+              styles.navContainer,
+              isCurrentNav && styles.selectedContainer
+            ]}>
+            <TouchableOpacity
+              onPress={() => navigation.navigate(item.name)}
+              style={styles.itemContainer}>
+              <Image source={itemImage} />
+              <Text style={isCurrentNav && styles.selectedItem}>
+                {item.name}
+              </Text>
+            </TouchableOpacity>
+          </View>
+        );
+      })}
+    </View>
+  );
+};
