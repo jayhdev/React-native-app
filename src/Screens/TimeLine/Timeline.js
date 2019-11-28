@@ -1,5 +1,5 @@
 import React from 'react';
-import { View } from 'react-native';
+import { View, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 import moment from 'moment';
@@ -41,10 +41,14 @@ function TimeLine({ navigation, timelineItems }) {
               </Text>
               <View style={styles.dateContent}>
                 {dayItems.map(time => (
-                  <View key={time._id} style={styles.timeStyle}>
+                  <TouchableOpacity
+                    key={time._id}
+                    style={styles.timeStyle}
+                    onPress={navigation =>
+                      navigation.navigate('TimeLineDetail')}>
                     <Text>{time.startTime}</Text>
                     <Text>{time.description}</Text>
-                  </View>
+                  </TouchableOpacity>
                 ))}
               </View>
             </View>
