@@ -16,10 +16,10 @@ export function loginRequest(email, password) {
   };
 }
 
-export function loginSuccess(token) {
+export function loginSuccess(data) {
   return {
     type: CONSTANTS.LOGIN_SUCCESS,
-    payload: token
+    payload: data
   };
 }
 
