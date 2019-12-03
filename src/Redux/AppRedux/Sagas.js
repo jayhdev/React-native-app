@@ -14,7 +14,7 @@ function* getEvent(action) {
 
     yield put(setEvent(result.data.event));
   } catch (e) {
-    console.log('Error in checklist', e);
+    console.log('Error in getEvent', e);
     return e.message;
   }
 
@@ -55,7 +55,7 @@ function* getBudgetDetail(action) {
 
     yield put(setChecklists(result.data.checklists));
   } catch (e) {
-    console.log('Error in checklist', e);
+    console.log('Error in budgetItem', e);
     return e.message;
   }
 
