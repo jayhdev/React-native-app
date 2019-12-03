@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Image, TouchableOpacity } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
 
 import navigationItems from './Constants';
 import styles from './styles';
@@ -10,8 +10,7 @@ export default ({ navigation }) => {
   return (
     <View style={styles.footerContainer}>
       {navigationItems.map(item => {
-        const isCurrentNav = routeName === item.name;
-        const itemImage = isCurrentNav ? item.pink : item.default;
+        const isCurrentNav = routeName.includes(item.name);
 
         return (
           <View
@@ -23,8 +22,9 @@ export default ({ navigation }) => {
             <TouchableOpacity
               onPress={() => navigation.navigate(item.name)}
               style={styles.itemContainer}>
-              <Image source={itemImage} />
-              <Text style={isCurrentNav && styles.selectedItem}>
+              {item.svg(isCurrentNav)}
+              <Text
+                style={[styles.itemText, isCurrentNav && styles.selectedItem]}>
                 {item.name}
               </Text>
             </TouchableOpacity>

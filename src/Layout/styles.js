@@ -24,6 +24,11 @@ export default StyleSheet.create({
     borderTopWidth: 0.5,
     width: '20%'
   },
+  itemText: {
+    fontSize: 10,
+    marginTop: 5,
+    color: colors.grey2
+  },
   selectedItem: {
     color: colors.secondary
   },
