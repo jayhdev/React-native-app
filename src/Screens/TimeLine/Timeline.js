@@ -44,8 +44,7 @@ function TimeLine({ navigation, timelineItems }) {
                   <TouchableOpacity
                     key={time._id}
                     style={styles.timeStyle}
-                    onPress={navigation =>
-                      navigation.navigate('TimeLineDetail')}>
+                    onPress={() => navigation.navigate('TimeLineDetail')}>
                     <Text>{time.startTime}</Text>
                     <Text>{time.description}</Text>
                   </TouchableOpacity>

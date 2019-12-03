@@ -31,7 +31,8 @@ class Finance extends React.Component {
   gotoDetail(id) {
     const { navigation } = this.props;
     const { selectedIndex } = this.state;
-    const route = selectedIndex === 0 ? 'BudgetDetail' : 'PaymentDetail';
+    const route =
+      selectedIndex === 0 ? 'Fiances_BudgetDetail' : 'Finances_PaymentDetail';
 
     navigation.navigate(route, {
       itemId: id
