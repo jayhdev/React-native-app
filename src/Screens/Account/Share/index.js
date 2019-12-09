@@ -31,9 +31,9 @@ const shareTypes = [
   }
 ];
 
-const Share = () => (
+const Share = ({ navigation }) => (
   <View style={rootStyles.container}>
-    <Header title="Share" />
+    <Header title="Share" navigation={navigation} />
     <Text h1 style={styles.shareTitle}>
       Kelly & Durant Wedding
     </Text>
