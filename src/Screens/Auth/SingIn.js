@@ -2,11 +2,13 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { KeyboardAvoidingView, View, TouchableHighlight } from 'react-native';
 import { Icon } from 'react-native-elements';
+import { Mutation } from 'react-apollo';
 
 import { Button, Input, Text } from '../../Components';
 import styles from './AuthStyles';
 import { loginRequest } from '../../Redux/AuthRedux/Actions';
 import colors from '../../Config/color';
+import { LoginUserMutation } from '../../Graphql/mutations';
 
 class SignIn extends React.Component {
   constructor(props) {
@@ -16,23 +18,18 @@ class SignIn extends React.Component {
       password: '',
       error: ''
     };
-    this.handleChangeInput = this.handleChangeInput.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleSignUpPress = this.handleSignUpPress.bind(this);
   }
 
-  handleChangeInput(value, field) {
+  handleChangeInput = (value, field) => {
     this.setState({ [field]: value });
-  }
+  };
 
-  handleSubmit() {
+  handleSubmit = loginFunc => {
     const { email, password } = this.state;
+    const loginVariables = { email, password };
 
     if (email && password) {
-      this.props.login({
-        email,
-        password
-      });
+      loginFunc({ variables: loginVariables });
 
       // clear the state after login for security
       this.setState({
@@ -45,11 +42,21 @@ class SignIn extends React.Component {
         error: 'Please fill in the values'
       });
     }
-  }
+  };
 
-  handleSignUpPress() {
+  handleSignUpPress = () => {
     this.props.navigation.navigate('SignUp');
-  }
+  };
+
+  handleLoginMutation = ({ loginFunc, error }) => {
+    if (error) {
+      console.log('error in user mutation :', error);
+    }
+
+    return (
+      <Button title="Login" onPress={() => this.handleSubmit(loginFunc)} />
+    );
+  };
 
   render() {
     return (
@@ -82,7 +89,9 @@ class SignIn extends React.Component {
             value={this.state.password}
             onChangeText={val => this.handleChangeInput(val, 'password')}
           />
-          <Button title="Login" onPress={this.handleSubmit} />
+          <Mutation mutation={LoginUserMutation}>
+            {this.handleLoginMutation}
+          </Mutation>
           <TouchableHighlight>
             <Text style={styles.forgotPassword}>Forgot password?</Text>
           </TouchableHighlight>
@@ -91,7 +100,8 @@ class SignIn extends React.Component {
           style={styles.buttonStyle}
           onPress={this.handleSignUpPress}
           activeOpacity={1}
-          underlayColor="white">
+          underlayColor="white"
+        >
           <View style={styles.titleStyle}>
             <Text style={styles.contentStyle}>Sign Up</Text>
             <Icon name="right" type="antdesign" />
