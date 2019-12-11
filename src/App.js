@@ -7,14 +7,14 @@ import { ApolloClient, InMemoryCache, HttpLink } from 'apollo-client-preset';
 import createStore from './Redux';
 import RootContainer from './RootContainer';
 import theme from './Config/theme';
-import envVars from '../environment';
+import getEnvVars from '../environment';
 
+const { apiUrl } = getEnvVars();
 const store = createStore();
-
 const client = new ApolloClient({
   cache: new InMemoryCache(),
   link: new HttpLink({
-    uri: envVars.apiUrl
+    uri: apiUrl
   })
 });
 
