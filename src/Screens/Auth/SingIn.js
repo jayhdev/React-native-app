@@ -1,14 +1,23 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import { KeyboardAvoidingView, View, TouchableHighlight } from 'react-native';
 import { Icon } from 'react-native-elements';
-import { Mutation } from 'react-apollo';
+import { Mutation } from '@apollo/react-components';
+import gql from 'graphql-tag';
 
 import { Button, Input, Text } from '../../Components';
 import styles from './AuthStyles';
-import { loginRequest } from '../../Redux/AuthRedux/Actions';
 import colors from '../../Config/color';
-import { LoginUserMutation } from '../../Graphql/mutations';
+// import { LoginUserMutation } from '../../Graphql/mutations';
+
+const LoginUserMutation = gql(
+  `mutation login($email: String!, $password: String!) {
+    login(email: $email, password: $password) {
+      id
+      isLoggedIn
+      error
+    }
+  }`
+);
 
 class SignIn extends React.Component {
   constructor(props) {
@@ -48,9 +57,13 @@ class SignIn extends React.Component {
     this.props.navigation.navigate('SignUp');
   };
 
-  handleLoginMutation = ({ loginFunc, error }) => {
+  handleLoginMutation = (loginFunc, { data, error }) => {
     if (error) {
       console.log('error in user mutation :', error);
+    }
+
+    if (data && data.login && data.login.isLoggedIn) {
+      this.props.navigation.navigate('HomeScreen');
     }
 
     return (
@@ -100,8 +113,7 @@ class SignIn extends React.Component {
           style={styles.buttonStyle}
           onPress={this.handleSignUpPress}
           activeOpacity={1}
-          underlayColor="white"
-        >
+          underlayColor="white">
           <View style={styles.titleStyle}>
             <Text style={styles.contentStyle}>Sign Up</Text>
             <Icon name="right" type="antdesign" />
@@ -112,9 +124,4 @@ class SignIn extends React.Component {
   }
 }
 
-const mapDispatchToProps = dispatch => ({
-  login: credentials =>
-    dispatch(loginRequest(credentials.email, credentials.password))
-});
-
-export default connect(null, mapDispatchToProps)(SignIn);
+export default SignIn;
