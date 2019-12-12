@@ -1,16 +1,28 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import { View, Alert } from 'react-native';
 import { Text } from 'react-native-elements';
+import gql from 'graphql-tag';
+import { useMutation } from '@apollo/react-hooks';
 
 import { ListItem } from '../../Components';
-import * as AuthActions from '../../Redux/AuthRedux/Actions';
 import Header from '../../Layout/Header';
 import rootStyles from '../../styles';
 import styles from './styles';
 import itemList from './Constants';
 
+const logoutMutation = gql`
+  mutation logout {
+    logout {
+      id
+      isLoggedIn
+      error
+    }
+  }
+`;
+
 const Account = props => {
+  const [logout] = useMutation(logoutMutation);
+
   const handleLogOut = () => {
     Alert.alert('Sign Out', 'Are you sure you want to sign out?', [
       {
@@ -19,7 +31,7 @@ const Account = props => {
       },
       {
         text: 'Confirm',
-        onPress: () => props.logout()
+        onPress: () => logout()
       }
     ]);
   };
@@ -72,12 +84,4 @@ const Account = props => {
   );
 };
 
-const mapStateToProps = ({ auth: { user } }) => ({
-  user
-});
-
-const mapDispatchToProps = dispatch => ({
-  logout: () => dispatch(AuthActions.logout())
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Account);
+export default Account;
