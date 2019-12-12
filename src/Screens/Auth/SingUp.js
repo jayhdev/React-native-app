@@ -1,12 +1,10 @@
 import React from 'react';
 import { KeyboardAvoidingView, View, TouchableHighlight } from 'react-native';
-import { connect } from 'react-redux';
 import { Mutation } from '@apollo/react-components';
 import gql from 'graphql-tag';
 
 import { Button, Input, Text } from '../../Components';
 import styles from './AuthStyles';
-import { signupRequest } from '../../Redux/AuthRedux/Actions';
 import colors from '../../Config/color';
 
 const signupMutation = gql(`
@@ -32,11 +30,8 @@ class Signup extends React.Component {
     this.setState({ [field]: value });
   };
 
-  handleSubmit = (signUp, data) => {
+  handleSubmit = signUp => {
     const { email, password } = this.state;
-    if (data) {
-      console.log('data for the signup :', data);
-    }
 
     if (email && password) {
       signUp({
@@ -64,10 +59,14 @@ class Signup extends React.Component {
   };
 
   handleSignupMutation = (signFunc, { data }) => {
+    if (data && data.signup && data.signup.isLoggedIn) {
+      this.props.navigation.navigate('HomeScreen');
+    }
+
     return (
       <Button
         title="Create an Account"
-        onPress={() => this.handleSubmit(signFunc, data)}
+        onPress={() => this.handleSubmit(signFunc)}
       />
     );
   };
@@ -122,9 +121,4 @@ class Signup extends React.Component {
   }
 }
 
-const mapDispatchToProps = dispatch => ({
-  signup: credentials =>
-    dispatch(signupRequest(credentials.email, credentials.password))
-});
-
-export default connect(null, mapDispatchToProps)(Signup);
+export default Signup;
