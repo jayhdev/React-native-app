@@ -1,26 +1,30 @@
 import React from 'react';
-import { ActivityIndicator, AsyncStorage, StatusBar, View } from 'react-native';
+import { ActivityIndicator, StatusBar, View } from 'react-native';
+import gql from 'graphql-tag';
+import { useQuery } from '@apollo/react-hooks';
 
-class LoadingScreen extends React.Component {
-  componentDidMount() {
-    this._bootstrapAsync();
+const sessionQuery = gql(`
+  { 
+    session {
+      id
+      isLoggedIn
+      error
+    }
   }
+`);
 
-  _bootstrapAsync = async () => {
-    const { navigation } = this.props;
-    const token = await AsyncStorage.getItem('token');
+function LoadingScreen({ navigation }) {
+  const data = useQuery(sessionQuery);
+  navigation.navigate(
+    data && data.session && data.session.isLoggedIn ? 'App' : 'Auth'
+  );
 
-    navigation.navigate(token ? 'App' : 'Auth');
-  };
-
-  render() {
-    return (
-      <View>
-        <ActivityIndicator />
-        <StatusBar barStyle="default" />
-      </View>
-    );
-  }
+  return (
+    <View>
+      <ActivityIndicator />
+      <StatusBar barStyle="default" />
+    </View>
+  );
 }
 
 export default LoadingScreen;

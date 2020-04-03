@@ -1,6 +1,5 @@
 import React from 'react';
 import { View, TouchableOpacity } from 'react-native';
-import { connect } from 'react-redux';
 import _ from 'lodash';
 import moment from 'moment';
 
@@ -20,7 +19,8 @@ function sortByDate(timelineItems) {
   return groupedArray;
 }
 
-function TimeLine({ navigation, timelineItems }) {
+function TimeLine({ navigation }) {
+  const timelineItems = []; // @TODO: Get correct timelineItems
   const sortedTimeLine = sortByDate(timelineItems);
 
   return (
@@ -59,12 +59,4 @@ function TimeLine({ navigation, timelineItems }) {
   );
 }
 
-const mapStateToProps = ({
-  app: {
-    event: { timelineItems }
-  }
-}) => ({
-  timelineItems
-});
-
-export default connect(mapStateToProps)(TimeLine);
+export default TimeLine;

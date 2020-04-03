@@ -1,20 +1,28 @@
 import React from 'react';
-import { Provider } from 'react-redux';
 import { ThemeProvider } from 'react-native-elements';
-import createStore from './Redux';
+import { ApolloProvider } from 'react-apollo';
+import { ApolloClient, InMemoryCache, HttpLink } from 'apollo-client-preset';
+
 import RootContainer from './RootContainer';
 import theme from './Config/theme';
+import getEnvVars from '../environment';
 
-const store = createStore();
+const { apiUrl } = getEnvVars();
+const client = new ApolloClient({
+  cache: new InMemoryCache(),
+  link: new HttpLink({
+    uri: apiUrl
+  })
+});
 
 class MainApp extends React.Component {
   render() {
     return (
-      <Provider store={store}>
+      <ApolloProvider client={client}>
         <ThemeProvider theme={theme}>
           <RootContainer />
         </ThemeProvider>
-      </Provider>
+      </ApolloProvider>
     );
   }
 }
