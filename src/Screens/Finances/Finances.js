@@ -1,7 +1,6 @@
 import React from 'react';
 import { Text, View } from 'react-native';
 import { ButtonGroup } from 'react-native-elements';
-import { connect } from 'react-redux';
 
 import { ListItem } from '../../Components';
 import Header from '../../Layout/Header';
@@ -15,20 +14,17 @@ class Finance extends React.Component {
     this.state = {
       selectedIndex: 0
     };
-    this.updateIndex = this.updateIndex.bind(this);
-    this.leftElement = this.leftElement.bind(this);
-    this.gotoDetail = this.gotoDetail.bind(this);
   }
 
-  updateIndex(selectedIndex) {
+  updateIndex = selectedIndex => {
     this.setState({ selectedIndex });
-  }
+  };
 
-  leftElement() {
+  leftElement = () => {
     <View style={styles.leftIcon} />;
-  }
+  };
 
-  gotoDetail(id) {
+  gotoDetail = id => {
     const { navigation } = this.props;
     const { selectedIndex } = this.state;
     const route =
@@ -37,7 +33,7 @@ class Finance extends React.Component {
     navigation.navigate(route, {
       itemId: id
     });
-  }
+  };
 
   render() {
     const { navigation, paymentLists, budgetLists } = this.props;
@@ -81,9 +77,4 @@ class Finance extends React.Component {
   }
 }
 
-const mapStateToProps = ({ app: { event } }) => ({
-  budgetLists: event.budgetItems,
-  paymentLists: event.paymentSchedules
-});
-
-export default connect(mapStateToProps)(Finance);
+export default Finance;

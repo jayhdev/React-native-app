@@ -1,3 +1,3 @@
-import Finances from './Finances'
+import Finances from './Finances';
 
-export default Finances
+export default Finances;

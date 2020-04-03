@@ -1,11 +1,20 @@
 import React from 'react';
 import { KeyboardAvoidingView, View, TouchableHighlight } from 'react-native';
-import { connect } from 'react-redux';
+import { Mutation } from '@apollo/react-components';
+import gql from 'graphql-tag';
 
 import { Button, Input, Text } from '../../Components';
 import styles from './AuthStyles';
-import { signupRequest } from '../../Redux/AuthRedux/Actions';
 import colors from '../../Config/color';
+
+const signupMutation = gql(`
+  mutation signup($email: String!, $password: String!) {
+    signup(email: $email, password: $password) {
+      id
+      isLoggedIn
+      error
+    }
+  }`);
 
 class Signup extends React.Component {
   constructor(props) {
@@ -15,23 +24,21 @@ class Signup extends React.Component {
       password: '',
       error: ''
     };
-
-    this.handleChangeInput = this.handleChangeInput.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleLoginReDirect = this.handleLoginReDirect.bind(this);
   }
 
-  handleChangeInput(value, field) {
+  handleChangeInput = (value, field) => {
     this.setState({ [field]: value });
-  }
+  };
 
-  handleSubmit() {
+  handleSubmit = signUp => {
     const { email, password } = this.state;
 
     if (email && password) {
-      this.props.signup({
-        email,
-        password
+      signUp({
+        variables: {
+          email,
+          password
+        }
       });
 
       // clear the state after signup for security
@@ -45,11 +52,24 @@ class Signup extends React.Component {
         error: 'Please fill in the values'
       });
     }
-  }
+  };
 
-  handleLoginReDirect() {
+  handleLoginReDirect = () => {
     this.props.navigation.navigate('SignIn');
-  }
+  };
+
+  handleSignupMutation = (signFunc, { data }) => {
+    if (data && data.signup && data.signup.isLoggedIn) {
+      this.props.navigation.navigate('HomeScreen');
+    }
+
+    return (
+      <Button
+        title="Create an Account"
+        onPress={() => this.handleSubmit(signFunc)}
+      />
+    );
+  };
 
   render() {
     return (
@@ -75,7 +95,9 @@ class Signup extends React.Component {
             rightIcon={{ name: 'md-eye', type: 'ionicon', color: colors.grey3 }}
             onChangeText={val => this.handleChangeInput(val, 'password')}
           />
-          <Button title="Create an Account" onPress={this.handleSubmit} />
+          <Mutation mutation={signupMutation}>
+            {this.handleSignupMutation}
+          </Mutation>
           <View style={styles.termsAndPolicy}>
             <Text style={styles.tpText}>By signing up, you agree to our </Text>
             <Text style={styles.tpText}>
@@ -99,9 +121,4 @@ class Signup extends React.Component {
   }
 }
 
-const mapDispatchToProps = dispatch => ({
-  signup: credentials =>
-    dispatch(signupRequest(credentials.email, credentials.password))
-});
-
-export default connect(null, mapDispatchToProps)(Signup);
+export default Signup;

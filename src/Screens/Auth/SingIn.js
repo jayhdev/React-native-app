@@ -1,12 +1,23 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import { KeyboardAvoidingView, View, TouchableHighlight } from 'react-native';
 import { Icon } from 'react-native-elements';
+import { Mutation } from '@apollo/react-components';
+import gql from 'graphql-tag';
 
 import { Button, Input, Text } from '../../Components';
 import styles from './AuthStyles';
-import { loginRequest } from '../../Redux/AuthRedux/Actions';
 import colors from '../../Config/color';
+// import { LoginUserMutation } from '../../Graphql/mutations';
+
+const LoginUserMutation = gql(
+  `mutation login($email: String!, $password: String!) {
+    login(email: $email, password: $password) {
+      id
+      isLoggedIn
+      error
+    }
+  }`
+);
 
 class SignIn extends React.Component {
   constructor(props) {
@@ -16,23 +27,18 @@ class SignIn extends React.Component {
       password: '',
       error: ''
     };
-    this.handleChangeInput = this.handleChangeInput.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleSignUpPress = this.handleSignUpPress.bind(this);
   }
 
-  handleChangeInput(value, field) {
+  handleChangeInput = (value, field) => {
     this.setState({ [field]: value });
-  }
+  };
 
-  handleSubmit() {
+  handleSubmit = loginFunc => {
     const { email, password } = this.state;
+    const loginVariables = { email, password };
 
     if (email && password) {
-      this.props.login({
-        email,
-        password
-      });
+      loginFunc({ variables: loginVariables });
 
       // clear the state after login for security
       this.setState({
@@ -45,11 +51,25 @@ class SignIn extends React.Component {
         error: 'Please fill in the values'
       });
     }
-  }
+  };
 
-  handleSignUpPress() {
+  handleSignUpPress = () => {
     this.props.navigation.navigate('SignUp');
-  }
+  };
+
+  handleLoginMutation = (loginFunc, { data, error }) => {
+    if (error) {
+      console.log('error in user mutation :', error);
+    }
+
+    if (data && data.login && data.login.isLoggedIn) {
+      this.props.navigation.navigate('HomeScreen');
+    }
+
+    return (
+      <Button title="Login" onPress={() => this.handleSubmit(loginFunc)} />
+    );
+  };
 
   render() {
     return (
@@ -82,7 +102,9 @@ class SignIn extends React.Component {
             value={this.state.password}
             onChangeText={val => this.handleChangeInput(val, 'password')}
           />
-          <Button title="Login" onPress={this.handleSubmit} />
+          <Mutation mutation={LoginUserMutation}>
+            {this.handleLoginMutation}
+          </Mutation>
           <TouchableHighlight>
             <Text style={styles.forgotPassword}>Forgot password?</Text>
           </TouchableHighlight>
@@ -102,9 +124,4 @@ class SignIn extends React.Component {
   }
 }
 
-const mapDispatchToProps = dispatch => ({
-  login: credentials =>
-    dispatch(loginRequest(credentials.email, credentials.password))
-});
-
-export default connect(null, mapDispatchToProps)(SignIn);
+export default SignIn;

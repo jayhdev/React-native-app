@@ -10,6 +10,9 @@ environment.js
 *.orig.*
 web-build/
 web-report/
+gql/
+Redux/
 .idea
 # macOS
 .DS_Store
+git 
